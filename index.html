@@ -129,7 +129,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1"></script>
     <script>
+        var contadorBolinhas = 0;
         function mudarCor() {
+            contadorBolinhas++;if (contadorBolinhas === 10) {
+                window.location.href = 'https://twitter.com/arturenovato';
+                // Zere o contador para recomeçar a contagem
+                contadorBolinhas = 0;
+            }
     var corR = Math.floor(Math.random() * 256);
     var corG = Math.floor(Math.random() * 256);
     var corB = Math.floor(Math.random() * 256);
