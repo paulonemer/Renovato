@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <style>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1"></script>
+    
+<style>
         body {
             font-family: 'Nothing You Could Do', cursive;
             transition: background-color 0.5s ease, color 0.5s ease;
@@ -22,6 +26,7 @@
             position: relative;
             background-color: #000000;
             color: #ffffff;
+            overflow: hidden;
         }
 
         #renovato-container {
@@ -89,11 +94,25 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
+        }
+
+        .ball {
+            position: absolute;
+            background-color: #ffffff;
             border-radius: 50%;
-            transition: background-color 0.5s ease;
+            width: 20px;
+            height: 20px;
+            animation: moveRight 2s linear infinite;
+        }
+
+        @keyframes moveRight {
+            to {
+                transform: translateX(calc(100% - 20px));
+            }
         }
     </style>
 </head>
+
 <body>
     <div id="renovato-container">
         <span id="renovato" onclick="mudarCor()">Renovato</span>
@@ -106,37 +125,64 @@
         <div class="color-code" id="backgroundColorCode">Fundo: <span id="backgroundColorValue">#000000</span></div>
         <div class="color-code" id="textColorCode">Texto: <span id="textColorValue">#ffffff</span></div>
     </div>
-    <button id="fullscreenButton" onclick="toggleFullScreen()">↑</button>
+    <div id="fullscreenButton" onclick="toggleFullScreen()"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1"></script>
     <script>
         function mudarCor() {
-            var corR = Math.floor(Math.random() * 256);
-            var corG = Math.floor(Math.random() * 256);
-            var corB = Math.floor(Math.random() * 256);
+    var corR = Math.floor(Math.random() * 256);
+    var corG = Math.floor(Math.random() * 256);
+    var corB = Math.floor(Math.random() * 256);
 
-            var novaCor = `rgb(${corR}, ${corG}, ${corB})`;
+    var novaCor = `rgb(${corR}, ${corG}, ${corB})`;
 
-            document.body.style.backgroundColor = novaCor;
+    document.body.style.backgroundColor = novaCor;
 
-            var corInvertida = `rgb(${255 - corR}, ${255 - corG}, ${255 - corB})`;
+    var corInvertida = `rgb(${255 - corR}, ${255 - corG}, ${255 - corB})`;
 
-            var renovatoText = document.getElementById('renovato');
-            renovatoText.style.color = corInvertida;
+    var renovatoText = document.getElementById('renovato');
+    renovatoText.style.color = corInvertida;
 
-            var backgroundSquare = document.getElementById('backgroundSquare');
-            backgroundSquare.style.backgroundColor = novaCor;
-            backgroundSquare.style.border = `2px solid ${corInvertida}`;
+    var backgroundSquare = document.getElementById('backgroundSquare');
+    backgroundSquare.style.backgroundColor = novaCor;
+    backgroundSquare.style.border = `2px solid ${corInvertida}`;
 
-            var textSquare = document.getElementById('textSquare');
-            textSquare.style.backgroundColor = corInvertida;
-            textSquare.style.border = `2px solid ${novaCor}`;
+    var textSquare = document.getElementById('textSquare');
+    textSquare.style.backgroundColor = corInvertida;
+    textSquare.style.border = `2px solid ${novaCor}`;
 
-            var backgroundColorCode = document.getElementById('backgroundColorValue');
-            backgroundColorCode.textContent = rgbToHex(corR, corG, corB);
+    var backgroundColorCode = document.getElementById('backgroundColorValue');
+    backgroundColorCode.textContent = rgbToHex(corR, corG, corB);
 
-            var textColorCode = document.getElementById('textColorValue');
-            textColorCode.textContent = rgbToHex(255 - corR, 255 - corG, 255 - corB);
+    var textColorCode = document.getElementById('textColorValue');
+    textColorCode.textContent = rgbToHex(255 - corR, 255 - corG, 255 - corB);
+
+    // Adicionar uma nova bolinha com a cor invertida
+    adicionarBolinha(corInvertida);
+}
+
+     function adicionarBolinha(cor) {
+    var bolinha = document.createElement('div');
+    bolinha.classList.add('ball');
+    bolinha.style.top = Math.floor(Math.random() * (window.innerHeight - 20)) + 'px';
+    bolinha.style.left = '0';
+    bolinha.style.backgroundColor = cor; // Defina a cor da bolinha
+    document.body.appendChild(bolinha);
+
+    anime({
+        targets: bolinha,
+        translateX: '100vw',
+        easing: 'linear',
+        duration: 2000,
+        loop: true,
+        complete: function () {
+            document.body.removeChild(bolinha);
         }
+    });
+}
+
+
+
 
         function rgbToHex(r, g, b) {
             return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
@@ -150,11 +196,8 @@
                     document.exitFullscreen();
                 }
             }
-
-            mudarCor();
-            var fullscreenButton = document.getElementById('fullscreenButton');
-            fullscreenButton.style.backgroundColor = document.body.style.backgroundColor;
         }
     </script>
 </body>
+
 </html>
