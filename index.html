@@ -27,6 +27,7 @@
             background-color: #000000;
             color: #ffffff;
             overflow: hidden;
+            
         }
 
         #renovato-container {
@@ -127,6 +128,7 @@ var contadorBolinhas2 = 0;
 
 function mudarCor() {
     contadorBolinhas1++;
+    contadorBolinhas2++;
     if (contadorBolinhas1 === 20) {
         // Abre o link em uma nova janela
         window.open('https://twitter.com/arturenovato', '_blank');
@@ -163,30 +165,33 @@ function mudarCor() {
     adicionarBolinha(corInvertida);
 
     // Verifica se o contadorBolinhas1 passou de 40
-    if (contadorBolinhas1 > 40) {
+    if (contadorBolinhas2 > 40) {
         alert('Com amor, Paulo.');
+        contadorBolinhas2 =0;
     }
 }
 
 
-        function adicionarBolinha(cor) {
-            var bolinha = document.createElement('div');
-            bolinha.classList.add('ball');
-            bolinha.style.top = Math.floor(Math.random() * (window.innerHeight - 20)) + 'px';
-            bolinha.style.left = '0';
-            bolinha.style.backgroundColor = cor;
-            document.body.appendChild(bolinha);
+function adicionarBolinha(cor) {
+    var bolinha = document.createElement('div');
+    bolinha.classList.add('ball');
+    var maxTop = window.innerHeight - 20; // Altura máxima da janela menos a altura da bolinha
+    var maxBottom = window.innerHeight - 40; // Altura máxima da janela menos a altura da bolinha
+    bolinha.style.top = Math.floor(Math.random() * (maxTop - 0 + 1) + 0) + 'px';
+    bolinha.style.left = '0';
+    bolinha.style.backgroundColor = cor;
+    document.body.appendChild(bolinha);
 
-            anime({
-                targets: bolinha,
-                translateX: '100vw',
-                translateY: `+=${Math.floor(Math.random() * (window.innerHeight - 20))}px`, // Adiciona movimento vertical
-                easing: 'linear',
-                duration: 2000,
-                loop: true,
-                direction: 'alternate', // Faz as bolinhas baterem e voltarem
-            });
-        }
+    anime({
+        targets: bolinha,
+        translateX: '100vw',
+        translateY: `+=${Math.floor(Math.random() * (maxBottom - 0 + 1) + 0)}px`, // Alterado para maxBottom
+        easing: 'linear',
+        duration: 2000,
+        loop: true,
+        direction: 'alternate',
+    });
+}
 
         function rgbToHex(r, g, b) {
             return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
