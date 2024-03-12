@@ -102,7 +102,6 @@
             border-radius: 50%;
             width: 20px;
             height: 20px;
-            /* Remova a animação inicial */
         }
     </style>
 </head>
@@ -127,7 +126,7 @@
 
         function mudarCor() {
             contadorBolinhas++;
-            if (contadorBolinhas === 10) {
+            if (contadorBolinhas === 20) {
                 window.location.href = 'https://twitter.com/arturenovato';
                 contadorBolinhas = 0;
             }
@@ -173,9 +172,11 @@
             anime({
                 targets: bolinha,
                 translateX: '100vw',
+                translateY: `+=${Math.floor(Math.random() * (window.innerHeight - 20))}px`, // Adiciona movimento vertical
                 easing: 'linear',
                 duration: 2000,
                 loop: true,
+                direction: 'alternate', // Faz as bolinhas baterem e voltarem
             });
         }
 
