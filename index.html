@@ -122,44 +122,52 @@
 
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1"></script>
     <script>
-        var contadorBolinhas = 0;
+       var contadorBolinhas1 = 0;
+var contadorBolinhas2 = 0;
 
-        function mudarCor() {
-            contadorBolinhas++;
-            if (contadorBolinhas === 20) {
-                window.location.href = 'https://twitter.com/arturenovato';
-                contadorBolinhas = 0;
-            }
+function mudarCor() {
+    contadorBolinhas1++;
+    if (contadorBolinhas1 === 20) {
+        // Abre o link em uma nova janela
+        window.open('https://twitter.com/arturenovato', '_blank');
+        contadorBolinhas1 = 0;
+    }
 
-            var corR = Math.floor(Math.random() * 256);
-            var corG = Math.floor(Math.random() * 256);
-            var corB = Math.floor(Math.random() * 256);
+    var corR = Math.floor(Math.random() * 256);
+    var corG = Math.floor(Math.random() * 256);
+    var corB = Math.floor(Math.random() * 256);
 
-            var novaCor = `rgb(${corR}, ${corG}, ${corB})`;
+    var novaCor = `rgb(${corR}, ${corG}, ${corB})`;
 
-            document.body.style.backgroundColor = novaCor;
+    document.body.style.backgroundColor = novaCor;
 
-            var corInvertida = `rgb(${255 - corR}, ${255 - corG}, ${255 - corB})`;
+    var corInvertida = `rgb(${255 - corR}, ${255 - corG}, ${255 - corB})`;
 
-            var renovatoText = document.getElementById('renovato');
-            renovatoText.style.color = corInvertida;
+    var renovatoText = document.getElementById('renovato');
+    renovatoText.style.color = corInvertida;
 
-            var backgroundSquare = document.getElementById('backgroundSquare');
-            backgroundSquare.style.backgroundColor = novaCor;
-            backgroundSquare.style.border = `2px solid ${corInvertida}`;
+    var backgroundSquare = document.getElementById('backgroundSquare');
+    backgroundSquare.style.backgroundColor = novaCor;
+    backgroundSquare.style.border = `2px solid ${corInvertida}`;
 
-            var textSquare = document.getElementById('textSquare');
-            textSquare.style.backgroundColor = corInvertida;
-            textSquare.style.border = `2px solid ${novaCor}`;
+    var textSquare = document.getElementById('textSquare');
+    textSquare.style.backgroundColor = corInvertida;
+    textSquare.style.border = `2px solid ${novaCor}`;
 
-            var backgroundColorCode = document.getElementById('backgroundColorValue');
-            backgroundColorCode.textContent = rgbToHex(corR, corG, corB);
+    var backgroundColorCode = document.getElementById('backgroundColorValue');
+    backgroundColorCode.textContent = rgbToHex(corR, corG, corB);
 
-            var textColorCode = document.getElementById('textColorValue');
-            textColorCode.textContent = rgbToHex(255 - corR, 255 - corG, 255 - corB);
+    var textColorCode = document.getElementById('textColorValue');
+    textColorCode.textContent = rgbToHex(255 - corR, 255 - corG, 255 - corB);
 
-            adicionarBolinha(corInvertida);
-        }
+    adicionarBolinha(corInvertida);
+
+    // Verifica se o contadorBolinhas1 passou de 40
+    if (contadorBolinhas1 > 40) {
+        alert('Com amor, Paulo.');
+    }
+}
+
 
         function adicionarBolinha(cor) {
             var bolinha = document.createElement('div');
